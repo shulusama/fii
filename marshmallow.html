@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>送 FII 一顆棉花糖｜匿名留言</title>
+<meta name="description" content="想點的歌、聽完的感想、想問的問題，都可以匿名丟給 FII。">
+<link rel="icon" href="assets/logo-dark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="wrap site-header">
+  <a class="logo" href="index.html" aria-label="FII 首頁"><img src="assets/logo-dark.png" alt="FII"></a>
+  <a href="index.html" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 500; text-decoration: none">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    回到首頁
+  </a>
+</header>
+
+<main class="mm-main">
+  <div class="mm-intro">
+    <svg aria-hidden="true" width="72" height="72" viewBox="0 0 72 72"><rect x="10" y="18" width="52" height="40" rx="18" fill="#FFFFFF" stroke="#C9A54A" stroke-width="2"/><path d="M22 32c3 3 7 3 10 0M40 32c3 3 7 3 10 0" stroke="#1F2A44" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="24" cy="42" r="3" fill="#F2C9C2"/><circle cx="48" cy="42" r="3" fill="#F2C9C2"/><path d="M58 12l1.5 3.5L63 17l-3.5 1.5L58 22l-1.5-3.5L53 17l3.5-1.5z" fill="#E3C46A"/></svg>
+    <p class="eyebrow">Marshmallow Box</p>
+    <h1>送 FII 一顆棉花糖</h1>
+    <p class="sub">想點的歌、聽完的感想、想問的問題，都可以匿名丟進來。</p>
+  </div>
+
+  <form id="mm-form" class="mm-form" novalidate>
+    <label for="msg">你的留言</label>
+    <textarea id="msg" name="msg" maxlength="500" rows="7" placeholder="例如：想聽 FII 唱〇〇〇！" required></textarea>
+    <p id="mm-error" class="mm-error" role="alert" hidden></p>
+    <div class="row">
+      <span class="count"><span id="mm-count">0</span> / 500 字</span>
+      <button id="mm-send" class="btn btn-dark" type="submit" disabled>
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
+        <span id="mm-send-label">匿名送出</span>
+      </button>
+    </div>
+  </form>
+
+  <div id="mm-done" class="mm-done" role="status" hidden>
+    <svg aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#E3C46A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 5.2L20 9l-4.3 3.9L17 19l-5-3-5 3 1.3-6.1L4 9l5.8-.8z"/></svg>
+    <p class="big">棉花糖收到了！</p>
+    <p class="soft">謝謝你，FII 會好好讀的。</p>
+    <button id="mm-again" class="btn btn-outline-gold" type="button" style="margin-top: 8px">再寫一顆</button>
+  </div>
+
+  <div class="mm-notes">
+    <strong>留言小提醒</strong>
+    <p>・留言是匿名的，FII 看不到你是誰</p>
+    <p>・部分留言可能會在直播或 X 上被挑選回覆</p>
+    <p>・請不要寫下個人資料，或攻擊、騷擾他人的內容</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© FII · 音稜線 Studio</span>
+    <div class="links">
+      <a href="https://www.youtube.com/@FII-voiceridge">YouTube</a>
+      <a href="https://x.com/VoiceRidge">X</a>
+      <a href="mailto:VoiceRidge@gmail.com">合作邀約：VoiceRidge@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/*
+ * Google 表單設定（填好這兩個值，留言就會送進你的表單）
+ * 1. FORM_ACTION：把表單網址結尾的 /viewform 換成 /formResponse
+ *    例：https://docs.google.com/forms/d/e/【表單ID】/formResponse
+ * 2. ENTRY_ID：表單「段落」題目的欄位代號，格式像 entry.123456789
+ *    取得方式：表單右上「⋮」→「取得預先填入的連結」→ 隨便填字 → 複製連結，網址裡的 entry.xxxx 就是它
+ */
+const FORM_ACTION = '';
+const ENTRY_ID = '';
+
+const form = document.getElementById('mm-form');
+const msg = document.getElementById('msg');
+const count = document.getElementById('mm-count');
+const send = document.getElementById('mm-send');
+const sendLabel = document.getElementById('mm-send-label');
+const error = document.getElementById('mm-error');
+const done = document.getElementById('mm-done');
+const again = document.getElementById('mm-again');
+
+function update() {
+  count.textContent = msg.value.length;
+  send.disabled = msg.value.trim().length === 0;
+}
+msg.addEventListener('input', update);
+
+function showError(text) {
+  error.textContent = text;
+  error.hidden = false;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  error.hidden = true;
+  const text = msg.value.trim();
+  if (!text) return;
+  if (!FORM_ACTION || !ENTRY_ID) {
+    showError('留言功能還在準備中，請稍後再來。');
+    return;
+  }
+  send.disabled = true;
+  sendLabel.textContent = '送出中…';
+  try {
+    const body = new FormData();
+    body.append(ENTRY_ID, text);
+    // Google 表單不回傳結果給其他網站，所以用 no-cors；請求有送出就視為成功
+    await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body });
+    msg.value = '';
+    update();
+    form.hidden = true;
+    done.hidden = false;
+    again.focus();
+  } catch (err) {
+    showError('送出失敗，請檢查網路後再試一次。');
+    send.disabled = false;
+  } finally {
+    sendLabel.textContent = '匿名送出';
+  }
+});
+
+again.addEventListener('click', () => {
+  done.hidden = true;
+  form.hidden = false;
+  msg.focus();
+});
+</script>
+</body>
+</html>
